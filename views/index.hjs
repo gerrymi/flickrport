@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Flickrport {{ title }}</h1>
+    <p>Transform your Flickr account to presentable portfolio for potential clients!</p>
+    <form action="/" method="post">
+            <fieldset>  
+                <input type="text" id="name" name="name" placeholder="Flickr Username" />
+                <input type="submit" value="Generate Portfolio" />
+            </fieldset>
+        </form>
+  </body>
+</html>

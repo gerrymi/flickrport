@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var Hogan = require('hjs')
 var Flickr = require("flickrapi"),
     flickrOptions = {
       api_key: "9925e9fc9654b7141240423e98da68e6",

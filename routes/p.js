@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
           			var server = result2.photoset.photo[j].server
           			var id = result2.photoset.photo[j].id
           			var secret = result2.photoset.photo[j].secret
-          			gallery += '<img src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">'
+          			gallery += '<img class="hidden" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">'
           		}
           		// console.log (result.photosets.photoset[i].id)
           		// console.log (result2.photoset)

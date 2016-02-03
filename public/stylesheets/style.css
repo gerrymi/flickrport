@@ -11,3 +11,7 @@ a {
 	height: 100px;
 	margin-right: 10px;
 }
+.gallery img.hidden
+{
+    display: none
+}

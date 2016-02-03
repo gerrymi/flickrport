@@ -11,6 +11,12 @@
     <h2>{{ username }}</h2>
     <h3>{{ user_id }}</h3>
     <div class="gallery">{{{ gallery }}}</div>
-
+  
+    <script>
+      $("img.hidden").bind("load", function () { $(this).fadeIn(); });
+      // $(document).ready(function () {
+      //     $('img.hidden').fadeIn(1000).removeClass('hidden');
+      // });
+    </script>
   </body>
 </html>

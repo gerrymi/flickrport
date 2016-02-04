@@ -17,20 +17,33 @@ router.get('/', function(req, res, next) {
       user_id: user_id,
       format: JSON
     }, function(err, result) {
-      for (var j in result.photosets.photoset) {
+      for (var i in result.photosets.photoset) {
         flickr.photosets.getPhotos({
           user_id: user_id,
-          photoset_id: result.photosets.photoset[j].id,
+          photoset_id: result.photosets.photoset[i].id,
           format: JSON
         }, function(err, result2) {
-          console.log (result.photosets.photoset[j].id+" "+result2.photoset.photo[0].id)
+          // for (var j in result2.photoset.photo) {
+          for (j=0; j<2; j++) {
+            var farm = result2.photoset.photo[j].farm
+            var server = result2.photoset.photo[j].server
+            var id = result2.photoset.photo[j].id
+            var secret = result2.photoset.photo[j].secret
+            var photo = '{"id": '+id+', "secret": '+secret+', "server": '+server+', "farm": '+farm+', "photoset_id": '+result2.photoset.id+', "photoset_title": '+result2.photoset.title+' }'
+            gallery.push (photo)
+            // gallery += '<img class="hidden '+result2.photoset.id+'" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">' 
+            console.log (gallery)
+          }
         });
       }
     });
   });
+  
+  res.render('p', {
+    title: username,
+    gallery: gallery + "a", 
+  })
 
-
-  res.render('p', {title: username})
 });
 
 module.exports = router;

@@ -10,42 +10,28 @@ var Flickr = require("flickrapi"),
 router.get('/', function(req, res, next) {
   var user_id = req.param('user_id');  
   var username = req.param('username');  
-  var thePhotoSets = "blank";
-  var gallery = ""
-  var fullGallery = ""
-  
-    Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-        flickr.photosets.getList({
+  var gallery = []
+
+  Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+    flickr.photosets.getList({
+      user_id: user_id,
+      format: JSON
+    }, function(err, result) {
+      for (var j in result.photosets.photoset) {
+        flickr.photosets.getPhotos({
           user_id: user_id,
+          photoset_id: result.photosets.photoset[j].id,
           format: JSON
-        }, function(err, result) {
-          thePhotoSets = result.photosets.photoset;
-          for (i = 0; i < 1; i++) {
-          	flickr.photosets.getPhotos({
-          		user_id: user_id,
-          		photoset_id: result.photosets.photoset[i].id,
-          		format: JSON
-          	}, function(err, result2) {
-          		photos = result2.photoset.photo
-          		for (var j in photos) {
-          			var farm = result2.photoset.photo[j].farm
-          			var server = result2.photoset.photo[j].server
-          			var id = result2.photoset.photo[j].id
-          			var secret = result2.photoset.photo[j].secret
-          			gallery += '<img class="hidden" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">'
-          		}
-          		fullGallery = gallery
-          		console.log (fullGallery)
-          		res.render('p', { 
-          			title: 'Ports',
-          			username: username,
-          			user_id: user_id,
-          			gallery: fullGallery
-          		});
-          	});
-          };
-  	   	});
-  	});
+        }, function(err, result2) {
+          console.log (result.photosets.photoset[j].id+" "+result2.photoset.photo[0].id)
+        });
+      }
+    });
+  });
+
+
+  res.render('p', {title: username})
 });
 
 module.exports = router;
+

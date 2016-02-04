@@ -34,8 +34,6 @@ router.get('/', function(req, res, next) {
           			var secret = result2.photoset.photo[j].secret
           			gallery += '<img class="hidden" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">'
           		}
-          		// console.log (result.photosets.photoset[i].id)
-          		// console.log (result2.photoset)
           		fullGallery = gallery
           		console.log (fullGallery)
           		res.render('p', { 
@@ -51,29 +49,3 @@ router.get('/', function(req, res, next) {
 });
 
 module.exports = router;
-
-
-// router.get('/', function(req, res, next) {
-//   var user_id = req.param('user_id');  
-//   var username = req.param('username');  
-//   var photosets = "blank";
-    
-//     Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-//         flickr.photosets.getList({
-//           user_id: user_id,
-//           format: JSON
-//         }, function(err, result) {
-//           photosets = result.photosets;
-//           var template = Hogan.compile("{{#photoset}} {{id}} {{/photoset}}");
-//           var output = template.render(photosets);
-//           console.log('output= ' + output);
-//           res.render('p', { 
-//           	title: 'Ports',
-//           	username: username,
-//           	user_id: user_id,
-//           	photosets: output
-//           });
-//   	   	});
-//   	});
-// });
-

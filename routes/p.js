@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
           // console.log ("Recieved Photos From Photoset: "+result2.photoset.id)
 
           // for (var j in result2.photoset.photo) {
-          for (j=0; j<result2.photoset.photo.length; j++) {
+          for (j=0; j<1; j++) {
             var farm = '"'+result2.photoset.photo[j].farm+'"'
             var server = '"'+result2.photoset.photo[j].server+'"'
             var id = '"'+result2.photoset.photo[j].id+'"'

@@ -19,14 +19,16 @@ router.get('/', function(req, res, next) {
       user_id: user_id,
       format: JSON
     }, function(err, result) {
-      console.log ("Recieved Photoset List")
+      // console.log ("Recieved Photoset List")
+
       for (var i in result.photosets.photoset) {
         flickr.photosets.getPhotos({
           user_id: user_id,
           photoset_id: result.photosets.photoset[i].id,
           format: JSON
         }, function(err, result2) {
-          console.log ("Recieved Photos From Photoset: "+result2.photoset.id)
+          // console.log ("Recieved Photos From Photoset: "+result2.photoset.id)
+
           for (var j in result2.photoset.photo) {
           // for (j=0; j<1; j++) {
             var farm = '"'+result2.photoset.photo[j].farm+'"'
@@ -38,12 +40,10 @@ router.get('/', function(req, res, next) {
 
             var photo = '{"id": '+id+', "secret": '+secret+', "server": '+server+', "farm": '+farm+', "photoset_id": '+photoset_id+', "photoset_title": '+photoset_title+' }'
             gallery.push (photo)
-            console.log ("Recieved Photo: "+photoset_id)
-            var galleryString = gallery.toString();
-            // gallery += '<img class="hidden '+result2.photoset.id+'" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">' 
-            var galleryParse = '{ "allPhotos": ['+galleryString+' ]}'
+            // console.log ("Recieved Photo: "+photoset_id)
+
             var file = './public/data/'+username+'.json'
-            var obj = JSON.parse(galleryParse)
+            var obj = JSON.parse('{ "allPhotos": ['+gallery.toString()+' ]}') 
             // console.log (obj)
             jsonfile.writeFile(file, obj, function (err) {
               console.error(err)
@@ -63,3 +63,4 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 
+// gallery += '<img class="hidden '+result2.photoset.id+'" src="https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '_' + 'm' + '.jpg" alt="">' 

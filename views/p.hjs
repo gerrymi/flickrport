@@ -12,20 +12,23 @@
     <script src="/angular/ng-infinite-scroll.min.js"></script>
   </head>
   <body ng-app="flickrPort">
-    <h1><% title %></h1>
-    <h2><% username %></h2>
-    <h3><% user_id %></h3>
-
-    <div id="main" ng-controller="galleryCtrl">
+    <div id="content" ng-controller="galleryCtrl">
+      <div id="header">
+        <h1><% username %> <small><%user_id%></small></h1>
+      </div>
       <div id="gallery">
-
-        <div ng-repeat="photoSet in photoSets"  class="fade-in photoset {{ photoSet.photoset.title }}">
-            <h1>{{ photoSet.photoset.title }}</h1>
-            <ul>
-              <li ng-repeat="photo in photoSet.photoset.photo">
-                <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_s.jpg">
-              </li>
-            </ul>
+        <div ng-repeat="photoSet in photoSets"  class="fade-in photoset">
+            <div class="{{ photoSet.photoset.title }} photoset-inner" style="background-image: url('https://farm{{ photoSet.photoset.photo[0].farm }}.staticflickr.com/{{ photoSet.photoset.photo[0].server }}/{{ photoSet.photoset.photo[0].id }}_{{ photoSet.photoset.photo[0].secret }}_b.jpg');">
+              <h2>{{ photoSet.photoset.title }}</h2>
+              <div class="photoset-slide-container">
+                <ul class="photoset-slides" style="width: {{ photoSet.photoset.photo.length * 90 + 70}}px;">
+                  <li class="cover"></li>
+                  <li ng-repeat="photo in photoSet.photoset.photo">
+                    <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
+                  </li>
+                </ul>
+              </div>
+            </div>
         </div>
 
       </div>

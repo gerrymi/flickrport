@@ -1,4 +1,5 @@
 var express = require('express');
+var async = require('async');
 var router = express.Router();
 var jsonfile = require('jsonfile')
 
@@ -8,56 +9,82 @@ var Flickr = require("flickrapi"),
       secret: "c6cd6aa6931ebfdd"
     };
 
+/* Sorting Function*/
+var sort_by = function(field, reverse, primer){
+
+   var key = primer ? 
+       function(x) {return primer(x[field])} : 
+       function(x) {return x[field]};
+
+   reverse = !reverse ? 1 : -1;
+
+   return function (a, b) {
+       return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+     } 
+}
 /* GET Ports. */
 router.get('/', function(req, res, next) {
   var user_id = req.param('user_id');  
   var username = req.param('username');  
   var gallery = []
 
-  Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-    flickr.photosets.getList({
-      user_id: user_id,
-      format: JSON
-    }, function(err, result) {
-      // console.log ("Recieved Photoset List")
-
-      for (var i in result.photosets.photoset) {
-        flickr.photosets.getPhotos({
+  async.waterfall ([
+    function (callback) {
+      Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+        flickr.photosets.getList({
           user_id: user_id,
-          photoset_id: result.photosets.photoset[i].id,
           format: JSON
-        }, function(err, result2) {
-          // console.log ("Recieved Photos From Photoset: "+result2.photoset.id)
-
-          // for (var j in result2.photoset.photo) {
-          for (j=0; j<1; j++) {
-            var farm = '"'+result2.photoset.photo[j].farm+'"'
-            var server = '"'+result2.photoset.photo[j].server+'"'
-            var id = '"'+result2.photoset.photo[j].id+'"'
-            var secret = '"'+result2.photoset.photo[j].secret+'"'
-            var photoset_id = '"'+result2.photoset.id+'"'
-            var photoset_title = '"'+result2.photoset.title+'"'
-
-            var photo = '{"id": '+id+', "secret": '+secret+', "server": '+server+', "farm": '+farm+', "photoset_id": '+photoset_id+', "photoset_title": '+photoset_title+' }'
-            gallery.push (photo)
-            // console.log ("Recieved Photo: "+photoset_id)
-
-            var file = './public/data/'+username+'.json'
-            var obj = JSON.parse('{ "allPhotos": ['+gallery.toString()+' ]}') 
-            // console.log (obj)
-            jsonfile.writeFile(file, obj, function (err) {
-              console.error(err)
-            })
-          }
+        }, function(err, result) {
+          console.log ("Recieved Photoset List")
+          // console.log (result.photosets.photoset)
+          var photosetList = result.photosets.photoset
+          callback (null, photosetList)
         });
-      }
-    });
-  });
-  
-  res.render('p', {
-    title: username,
-    gallery: gallery + "a", 
-  })
+      });
+    },
+    function (photosetList, callback) {
+      var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
+      var configs = {};
+
+      async.forEachOf(photosetList, function (value, key, callback) {
+          Flickr.tokenOnly(flickrOptions, function(error, flickr) {
+            flickr.photosets.getPhotos({
+              user_id: user_id,
+              photoset_id: value.id,
+              format: JSON
+            }, function(err, result) {
+              // console.log ("Recieved Photos from Photoset #"+ key)
+              result.order = key;
+              gallery.push (result)
+              callback();
+            });
+          });
+      }, function (err) {
+          if (err) console.error(err.message);
+          callback (null, gallery)
+      })
+    },
+    function (gallery, callback) {
+      gallery.sort(sort_by('order', false, parseInt));
+      callback (null, gallery)
+    },
+    function (gallery, callback) {
+      var file = './public/data/'+username+'.json'
+      var obj = gallery
+      jsonfile.writeFile(file, obj, {spaces: 2}, function (err) {
+        console.error(err)
+      })
+      callback (null, gallery)
+    }
+    ], function(err, results) {
+    res.render('p', {
+      title: username+"'s FlickrPort",
+      username: username,
+      user_id: user_id 
+    })
+  })  
+
+
 
 });
 

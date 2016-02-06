@@ -1,3 +1,6 @@
+process.env.PWD = process.cwd()
+
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -8,13 +11,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var ports = require('./routes/p');
 
-var Flickr = require("flickrapi"),
-    flickrOptions = {
-      api_key: "9925e9fc9654b7141240423e98da68e6",
-      secret: "c6cd6aa6931ebfdd"
-    };
-
 var app = express();
+app.use(express.static(process.env.PWD + '/htdocs'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

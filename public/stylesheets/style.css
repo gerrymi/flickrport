@@ -10,11 +10,28 @@ a {
 	list-style-type: none;
 	display: inline;
 }
-#gallery img {
-	height: 100px;
-	margin-right: 10px;
-}
-#gallery img.hidden
+#gallery li.hidden
 {
-    display: none
+    display: none;
 }
+
+.fade-in.ng-enter 
+ {
+     -webkit-transition: 2s;
+     transition: 2s;
+     opacity:0;
+ }
+ .fade-in.ng-enter-active 
+ {
+     opacity:1;
+ }
+ .fade-in.ng-leave 
+ {
+     -webkit-transition: 2s;
+     transition: 2s;
+     opacity:1;
+ }
+ .fade-in.ng-leave-active 
+ {
+     opacity:0;
+ }

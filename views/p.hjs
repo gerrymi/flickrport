@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }}</title>
+    <title><% title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+<!-- 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+ -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+    <script src="/angular/ng-infinite-scroll.min.js"></script>
   </head>
-  <body>
-    <h1>{{ title }}</h1>
-    <h2>{{ username }}</h2>
-    <h3>{{ user_id }}</h3>
-    <div id="gallery"></div>
-    <script>
-    $(function () {
-      
-      var $gallery = $('#gallery');
+  <body ng-app="flickrPort">
+    <h1><% title %></h1>
+    <h2><% username %></h2>
+    <h3><% user_id %></h3>
 
-      $.ajax({
-        type: 'GET',
-        url: '/data/{{ username }}.json',
-        success: function(photoSets) {
-          $.each(photoSets, function (i, photoSet) {
-            console.log (photoSet.photoset.title)
-            $gallery.append('<div id='+photoSet.photoset.title+'><h1>'+photoSet.photoset.title+'</h1>')
-            $.each(photoSet.photoset.photo, function (j, photo) {
-              $gallery.append('<li><img src=https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_m.jpg></li>');
-            });
-            $gallery.append('</div>')
-          });
-        },
+    <div id="main" ng-controller="galleryCtrl">
+      <div id="gallery">
+
+        <div ng-repeat="photoSet in photoSets"  class="fade-in photoset {{ photoSet.photoset.title }}">
+            <h1>{{ photoSet.photoset.title }}</h1>
+            <ul>
+              <li ng-repeat="photo in photoSet.photoset.photo">
+                <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_s.jpg">
+              </li>
+            </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="/angular/app.js"></script>
+    <script>
+      app.controller('galleryCtrl', function($scope, $http, $timeout) {
+        $http.get('/data/<% username %>.json')
+             .then(function(res){
+                $scope.photoSets = [];
+                $timeout(function() {
+                  $scope.photoSets = res.data;
+                })
+
+              });
       });
-
-    });
-    </script>
-    <script>
-      $("img.hidden").bind("load", function () { $(this).fadeIn(); });
     </script>
   </body>
 </html>

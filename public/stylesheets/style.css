@@ -6,12 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
-
-.gallery img {
+#gallery li {
+	list-style-type: none;
+	display: inline;
+}
+#gallery img {
 	height: 100px;
 	margin-right: 10px;
 }
-.gallery img.hidden
+#gallery img.hidden
 {
     display: none
 }

@@ -36,19 +36,8 @@ app.use('/p', ports);
 // Convert Flickr username to userid
 app.post('/', function(req, res) {
   var username = req.body.name
-  var user_id = " "
-  Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-    flickr.people.findByUsername({
-      username: username,
-      format: JSON
-    }, function(err, result) {
-      console.log (result.user.id);
-      user_id = result.user.id;
-      res.redirect('/p?user_id='+user_id+'&username='+username)
-    });
-  });
+  res.redirect('/p?username='+username)
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

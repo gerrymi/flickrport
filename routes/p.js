@@ -1,7 +1,6 @@
 var express = require('express');
 var async = require('async');
 var router = express.Router();
-var jsonfile = require('jsonfile')
 
 var Flickr = require("flickrapi"),
     flickrOptions = {

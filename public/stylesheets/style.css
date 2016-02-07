@@ -2,9 +2,14 @@ body {
 	margin: 0;
 	background-color: #efefef;
 }
+*, a, a:hover {
+	text-decoration: none;
+}
 small {
 	font-size: .4em;
-	color: #666;
+}
+.loading {
+	text-align: center;
 }
 #container {
 	max-width: 960px;
@@ -20,6 +25,10 @@ small {
 #header h1{
 	padding-top: 35px;
 	margin: 0;
+	color: #f60;
+}
+#header h1 small{
+	color: #999;
 }
 #content {
 	width: 100%;
@@ -54,8 +63,50 @@ small {
 .fade-in.ng-leave-active {
 	opacity:0;
 	margin-top: 200px;
+}
+#menu {
+	position: fixed;
+	z-index: 10;
+	opacity: .25;
+	top: 165px;
+	margin-left: -140px;
+	width: 210px;
+	-webkit-transition: 0.65s;
+	-o-transition: 0.65s;
+	transition: 0.65s;
+}
+#menu:hover {
+	opacity: 1;
+}
+.photoset-titles {
+	overflow: hidden;
+	padding-left: 0;
+	max-height: 60vh;
+	overflow-y: scroll;
 
 }
+.photoset-titles li {
+	overflow: hidden;
+	font-size: .6em;
+	padding: 10px;
+	background-color: #fff;
+	-webkit-transition: 0.35s;
+	-o-transition: 0.35s;
+	transition: 0.35s;
+}
+.photoset-titles li a {
+	margin: 0px;
+	color: #f60;
+}
+.photoset-titles li:hover {
+	background-color: #f60;
+	margin-left: 20px;
+}
+.photoset-titles li:hover a {
+	color: #fff;
+}
+
+
 .photoset {
 	width: 100%;
 	margin-bottom: 50px;

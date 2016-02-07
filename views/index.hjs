@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ title }}</title>
+    <title><% title %></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/forms.css' />
   </head>
   <body>
-    <h1>Flickrport {{ title }}</h1>
-    <p>Transform your Flickr account to presentable portfolio for potential clients!</p>
-    <form action="/" method="post">
-            <fieldset>  
-                <input type="text" id="name" name="name" placeholder="Flickr Username" />
-                <input type="submit" value="Generate Portfolio" />
-            </fieldset>
+    <div id="container">
+      <div id="header" class="home">
+        <h1><% title %></h1>
+        <p>Transform your Flickr account to a presentable portfolio for potential clients!</p>
+      </div>
+      <div id="content">
+        <form class="generate-form" action="/" method="post">
+           <span class="input input--jiro">
+            <input class="input__field input__field--jiro" type="text" id="name" name="name" autocomplete="off"/>
+            <label class="input__label input__label--jiro" for="input-10">
+              <span class="input__label-content input__label-content--jiro"><h2>flickr username</h2></span>
+            </label>
+          </span>
         </form>
+      </div>
+    </div>
   </body>
 </html>

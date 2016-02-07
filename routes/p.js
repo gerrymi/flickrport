@@ -40,53 +40,6 @@ router.get('/', function(req, res, next) {
           callback (null, user_id)
         });
       });
-    },
-    function (user_id, callback) {
-      Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-        flickr.photosets.getList({
-          user_id: user_id,
-          format: JSON
-        }, function(err, result) {
-          console.log ("Recieved Photoset List")
-          // console.log (result.photosets.photoset)
-          var photosetList = result.photosets.photoset
-          callback (null, photosetList, user_id)
-        });
-      });
-    },
-    function (photosetList, user_id, callback) {
-      var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
-      var configs = {};
-
-      async.forEachOf(photosetList, function (value, key, callback) {
-          Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-            flickr.photosets.getPhotos({
-              user_id: user_id,
-              photoset_id: value.id,
-              format: JSON
-            }, function(err, result) {
-              // console.log ("Recieved Photos from Photoset #"+ key)
-              result.order = key;
-              gallery.push (result)
-              callback();
-            });
-          });
-      }, function (err) {
-          if (err) console.error(err.message);
-          callback (null, gallery, user_id)
-      })
-    },
-    function (gallery, user_id, callback) {
-      gallery.sort(sort_by('order', false, parseInt));
-      callback (null, gallery, user_id)
-    },
-    function (gallery, user_id, callback) {
-      var file = './public/data/'+username+'.json'
-      var obj = gallery
-      jsonfile.writeFile(file, obj, {spaces: 2}, function (err) {
-        console.error(err)
-      })
-      callback (null, gallery, user_id)
     }
     ], function(err, results) {
     res.render('p', {

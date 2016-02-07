@@ -14,35 +14,59 @@
       <div id="header">
         <h1><% username %> <small><%user_id%></small></h1>
       </div>
-      <div id="content">
-        <div ng-repeat="photoSet in photoSets"  class="fade-in photoset">
-            <div class="{{ photoSet.photoset.title }} photoset-inner" style="background-image: url('https://farm{{ photoSet.photoset.photo[0].farm }}.staticflickr.com/{{ photoSet.photoset.photo[0].server }}/{{ photoSet.photoset.photo[0].id }}_{{ photoSet.photoset.photo[0].secret }}_b.jpg');">
-              <h2>{{ photoSet.photoset.title }}</h2>
-              <div class="photoset-slide-container" style="margin-left: {{ move }}px"ng-init="move=0" ng-mouseover="move = move - 90" >{{ move }}
-                <ul class="photoset-slides" style="width: {{ photoSet.photoset.photo.length * 90 + 120}}px;" >
+      <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
+        <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
+            <div class="{{ photoSet.title }} photoset-inner" style="background-image: url('https://farm{{ photoSet.photo[0].farm }}.staticflickr.com/{{ photoSet.photo[0].server }}/{{ photoSet.photo[0].id }}_{{ photoSet.photo[0].secret }}_b.jpg');">
+              <h2>{{ photoSet.title }}</h2>
+              <div class="photoset-slide-container">
+                <ul class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 120}}px;" >
                   <li class="cover"></li>
-                  <li ng-repeat="photo in photoSet.photoset.photo">
+                  <li ng-repeat="photo in photoSet.photo">
                     <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
                   </li>
                 </ul>
               </div>
             </div>
         </div>
-
+        <div ng-show='flickrPort.busy'>Loading data...</div>
       </div>
     </div>
 
     <script src="/angular/app.js"></script>
     <script>
-      app.controller('galleryCtrl', function($scope, $http, $timeout) {
-        $http.get('/data/<% username %>.json')
-             .then(function(res){
-                $scope.photoSets = [];
-                $timeout(function() {
-                  $scope.photoSets = res.data
-                })
+      app.controller('galleryCtrl', function($scope, flickrPort) {
+        $scope.flickrPort = new flickrPort();
+      });
 
-              });
+      app.factory('flickrPort', function($http) {
+        var flickrPort = function() {
+          this.photoSets = [];
+          this.busy = false;
+        };
+        var loaded = 0
+
+        flickrPort.prototype.nextPage = function() {
+          if (this.busy) return;
+          this.busy = true;
+          console.log (loaded)
+
+          var getList = "https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=9925e9fc9654b7141240423e98da68e6&user_id=<% user_id %>&format=json&nojsoncallback=1";
+          $http.get(getList).then(function(res){
+            var photoSetList = res.data.photosets.photoset;
+            console.log (photoSetList)
+            for (var i = loaded; i < loaded+5; i++) {
+              $http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9925e9fc9654b7141240423e98da68e6&photoset_id="+photoSetList[i].id+"&user_id=<% user_id%>&format=json&nojsoncallback=1").then(function(res){
+                photos = res.data.photoset
+                // console.log (photos.title)
+                this.photoSets.push(photos);
+                loaded += 1
+              }.bind(this));
+            }
+
+            this.busy = false;
+          }.bind(this));
+        };
+        return flickrPort;
       });
     </script>
   </body>

@@ -97,6 +97,7 @@ small {
 .photoset-titles {
 	overflow: hidden;
 	padding-left: 0;
+	min-height: 60vh;
 	max-height: 60vh;
 	overflow-y: scroll;
 	margin: 0;

@@ -1,7 +1,5 @@
 var app = angular.module("flickrPort", ["infinite-scroll", "ngAnimate"]);
 
-angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 3000)
-
 app.controller('galleryCtrl', function($scope, $location, $anchorScroll, flickrPort) {
 	$scope.flickrPort = new flickrPort();
 	$scope.scrollTo = function(x) {
@@ -36,13 +34,14 @@ app.factory('flickrPort', function($http) {
 
       	$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=9925e9fc9654b7141240423e98da68e6&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
 	        photoSetList = res.data.photosets.photoset
+	        console.log ("start"+loaded)
 	        for (var i = loaded; i < loaded+3; i++) {
 	          	$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9925e9fc9654b7141240423e98da68e6&photoset_id="+photoSetList[i].id+"&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
 		            photos = res.data.photoset
 		            this.photoSets.push(photos);
-		            loaded += 1
 	          	}.bind(this));
 	        }
+	        loaded += 3
 		   	this.busy = false;
 	    }.bind(this));
 	};

@@ -31,7 +31,7 @@
                 <div class="moveR" ng-mouseover="pMove=pMove+600"></div>
                 <div class="photoset-slide-inner">
                   <ul ng-init="pSlide=0" class="photoset-slides" style="width: {{ photoSet.photo.length * 150 + 1500}}px; margin-left: -{{pSlide+pMove}}px;" >
-                    <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover=$index; $parent.pSlide=$index*150-420; $parent.pMove=0" >
+                    <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover=$index; $parent.pSlide=$index*150-300; $parent.pMove=0" >
                       <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
                     </li>
                   </ul>

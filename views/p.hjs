@@ -12,20 +12,21 @@
   <body ng-app="flickrPort">
     <div id="container" ng-controller="galleryCtrl">
       <div id="header">
-        <h1><% username %> <small><%user_id%></small></h1>  
         <div id="menu">
+          <h1><% username %></h1>  
           <ul class="fade-in photoset-titles">
               <li ng-repeat="photoSet in flickrPort.photoSets" id="{{ photoSet.title }}">
                 <a href="" ng-click="scrollTo($index)"><h2>{{ photoSet.title }}</h2></a>
               </li>
+              <li class="spacer"></li>
           </ul>
         </div>      
       </div>
       <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
         <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
             <div ng-init="pCover = 0" id="photoset-{{ $index }}" class="photoset-inner">
-              <h2>{{ photoSet.title }}</h2><a name="{{ photoSet.title }}"></a>
-              <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" class="animate-show" fade-in alt="{{ photoSet.title }}">
+              <h1>{{ photoSet.title }}</h1><a name="{{ photoSet.title }}"></a>
+              <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" alt="{{ photoSet.title }}">
               <div class="photoset-slide-container">
                 <ul ng-init="pSlide = 0" class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 900}}px; margin-left: -{{pSlide}}px;" >
                   <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover = $index; $parent.pSlide = $index*90-270;" >

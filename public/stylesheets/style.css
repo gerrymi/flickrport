@@ -8,6 +8,9 @@ body {
 small {
 	font-size: .4em;
 }
+.spacer {
+	padding-top: 65px;
+}
 .loading {
 	margin-top: 65px;
 	text-align: center;
@@ -26,14 +29,23 @@ small {
 }
 #header {
 	margin: 0 auto;
+	text-align: right;
 }
 #header h1{
-	padding-top: 35px;
+	width: auto;
+	padding: 10px 10px 0;
+	background-color: #f60;
 	margin: 0;
-	color: #f60;
+	color: #fff;
+	position: absolute;
+	top: -1.5em;
+	right: 0;
 }
 #header h1 small{
 	color: #999;
+}
+#menu:hover #header {
+	width: 100%;
 }
 #content {
 	width: 100%;
@@ -68,25 +80,13 @@ small {
 	opacity:0;
 	margin-top: 200px;
 }
-.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-    transition: all linear 0.5s;
-    display: block !important;
-}
-
-.animate-show.ng-hide-add.ng-hide-add-active, .animate-show.ng-hide-remove {
-    opacity: 0;
-}
-
-.animate-show.ng-hide-add, .animate-show.ng-hide-remove.ng-hide-remove-active {
-    opacity: 1;
-}
 #menu {
 	position: fixed;
 	z-index: 10;
-	top: 135px;
-	margin-left: -150px;
+	top: 10vh;
+	margin-left: -165px;
 	min-width: 140px; 
-	width: 140px;
+	width: 10px;
 	-webkit-transition: 0.4s;
 	-o-transition: 0.4s;
 	transition: 0.4s;
@@ -137,7 +137,7 @@ small {
 }
 .photoset-inner {
 	width: 100%;
-	margin-top: 65px;
+	margin-top: 50px;
 	position: relative;
 	float: left;
 	-webkit-transition: 0.3s;
@@ -196,7 +196,7 @@ small {
 	margin-top: -10px;
 }
 
-.photoset h2 {
+.photoset h1 {
 	color: rgba(0,0,0,0);
 	background-color: rgba(255,255,255,0);
 	padding: 0px 25px 0px 10px;
@@ -208,7 +208,7 @@ small {
 	-o-transition: 0.35s;
 	transition: 0.35s;
 }
-.photoset:hover h2 {
+.photoset:hover h1 {
 	color: rgba(0,0,0,1);
 	background-color: rgba(255,255,255,1);
 }

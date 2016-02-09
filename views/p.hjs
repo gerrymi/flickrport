@@ -23,13 +23,15 @@
           </ul>
         </div>
         <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
-            <div id="photoset-{{ $index }}" class="photoset-inner" style="background-image: url('https://farm{{ photoSet.photo[0].farm }}.staticflickr.com/{{ photoSet.photo[0].server }}/{{ photoSet.photo[0].id }}_{{ photoSet.photo[0].secret }}_b.jpg');">
+            <button ng-click="display = display + -1">Prev</button> 
+            <button ng-click="display = display + 1">Next</button> 
+            <div ng-init="display = 0" id="photoset-{{ $index }}" class="photoset-inner" style="background-image: url('https://farm{{ photoSet.photo[display].farm }}.staticflickr.com/{{ photoSet.photo[display].server }}/{{ photoSet.photo[display].id }}_{{ photoSet.photo[display].secret }}_b.jpg');">
               <h2>{{ photoSet.title }}</h2><a name="{{ photoSet.title }}"></a>
               <div class="photoset-slide-container">
                 <ul class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 120}}px;" >
                   <li class="cover"></li>
                   <li ng-repeat="photo in photoSet.photo">
-                    <img src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
+                    <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
                   </li>
                 </ul>
               </div>

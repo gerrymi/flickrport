@@ -17,6 +17,10 @@ app.controller('galleryCtrl', function($scope, $location, $anchorScroll, flickrP
             }
       console.log(newHash)
    }
+   $scope.counter = 0;
+   $scope.count = function (inc) {
+       $scope.counter += inc;
+   };
 });
 
 app.factory('flickrPort', function($http) {

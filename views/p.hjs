@@ -12,26 +12,24 @@
   <body ng-app="flickrPort">
     <div id="container" ng-controller="galleryCtrl">
       <div id="header">
-        <h1><% username %> <small><%user_id%></small></h1>        
-      </div>
-      <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
+        <h1><% username %> <small><%user_id%></small></h1>  
         <div id="menu">
           <ul class="fade-in photoset-titles">
               <li ng-repeat="photoSet in flickrPort.photoSets" id="{{ photoSet.title }}">
                 <a href="" ng-click="scrollTo($index)"><h2>{{ photoSet.title }}</h2></a>
               </li>
           </ul>
-        </div>
+        </div>      
+      </div>
+      <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
         <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
-            <button ng-click="display = display + -1">Prev</button> 
-            <button ng-click="display = display + 1">Next</button> 
-            <div ng-init="display = 0" id="photoset-{{ $index }}" class="photoset-inner" style="background-image: url('https://farm{{ photoSet.photo[display].farm }}.staticflickr.com/{{ photoSet.photo[display].server }}/{{ photoSet.photo[display].id }}_{{ photoSet.photo[display].secret }}_b.jpg');">
+            <div ng-init="pCover = 0" id="photoset-{{ $index }}" class="photoset-inner">
               <h2>{{ photoSet.title }}</h2><a name="{{ photoSet.title }}"></a>
+              <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" class="animate-show" fade-in alt="{{ photoSet.title }}">
               <div class="photoset-slide-container">
-                <ul class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 120}}px;" >
-                  <li class="cover"></li>
-                  <li ng-repeat="photo in photoSet.photo">
-                    <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
+                <ul ng-init="pSlide = 0" class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 900}}px; margin-left: -{{pSlide}}px;" >
+                  <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover = $index; $parent.pSlide = $index*90-270;" >
+                    <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
                   </li>
                 </ul>
               </div>

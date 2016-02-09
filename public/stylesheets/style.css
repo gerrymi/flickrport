@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background-color: #efefef;
+	background-color: #f3f3f3;
 }
 *, a, a:hover {
 	text-decoration: none;
@@ -9,18 +9,23 @@ small {
 	font-size: .4em;
 }
 .loading {
+	margin-top: 65px;
 	text-align: center;
+}
+.loading img {
+	width: 35px;
 }
 #container {
 	max-width: 960px;
 	width: 100%;
+	min-height: 100vh;
 	padding: 0 10px;
 	background-color: #fff;
-	overflow: none;
+	overflow: hidden;
 	margin: 0 auto;
 }
 #header {
-	margin: 0 auto 65px;
+	margin: 0 auto;
 }
 #header h1{
 	padding-top: 35px;
@@ -34,7 +39,7 @@ small {
 	width: 100%;
 	margin: 0 auto;
 	padding-bottom: 50px; 
-	overflow: none;
+	overflow: hidden;
 }
 #header.home {
 	margin-top: 30vh;
@@ -47,7 +52,7 @@ small {
 	-webkit-transition: 2s;
 	transition: 2s;
 	opacity:0;
-	margin-top: 200px;
+	margin-top: 210px;
 }
 .fade-in.ng-enter-active {
 	opacity:1;
@@ -58,86 +63,114 @@ small {
 	transition: 2s;
 	opacity:1;
 	margin-top: 0px;
-
 }
 .fade-in.ng-leave-active {
 	opacity:0;
 	margin-top: 200px;
 }
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+    transition: all linear 0.5s;
+    display: block !important;
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active, .animate-show.ng-hide-remove {
+    opacity: 0;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
 #menu {
 	position: fixed;
 	z-index: 10;
-	opacity: .25;
-	top: 165px;
-	margin-left: -140px;
-	width: 210px;
-	-webkit-transition: 0.65s;
-	-o-transition: 0.65s;
-	transition: 0.65s;
+	top: 135px;
+	margin-left: -150px;
+	min-width: 140px; 
+	width: 140px;
+	-webkit-transition: 0.4s;
+	-o-transition: 0.4s;
+	transition: 0.4s;
 }
 #menu:hover {
-	opacity: 1;
+	width: 240px;
 }
 .photoset-titles {
 	overflow: hidden;
 	padding-left: 0;
 	max-height: 60vh;
 	overflow-y: scroll;
-
+	margin: 0;
 }
 .photoset-titles li {
 	overflow: hidden;
 	font-size: .6em;
 	padding: 10px;
 	background-color: #fff;
+	border-right: 1px solid #f60;
+	text-align: right;
+	border-bottom: 1px solid #eee;
 	-webkit-transition: 0.35s;
 	-o-transition: 0.35s;
 	transition: 0.35s;
 }
-.photoset-titles li a {
+#menu:hover .photoset-titles li {
+	border-right: 10px solid #f60;
+	background-color: #fff;
+	text-align: right;
+}
+.photoset-titles li a h2 {
 	margin: 0px;
 	color: #f60;
+	white-space: nowrap;
 }
-.photoset-titles li:hover {
+#menu .photoset-titles li:hover {
 	background-color: #f60;
 	margin-left: 20px;
 }
-.photoset-titles li:hover a {
+.photoset-titles li:hover a h2 {
 	color: #fff;
 }
-
-
 .photoset {
 	width: 100%;
-	margin-bottom: 50px;
 	overflow: hidden;
 	clear: both;
 }
 .photoset-inner {
-	background-position: center;
-	-webkit-background-size: cover;
-	background-size: cover;
-	height: 450px;
 	width: 100%;
+	margin-top: 65px;
 	position: relative;
 	float: left;
+	-webkit-transition: 0.3s;
+	-o-transition: 0.3s;
+	transition: 0.3s;
+}
+.photoset-inner .photoset-cover {
+	width: 100%;
+}
+.photoset-cover {
+	z-index: 1;
 }
 .photoset-slide-container {
+	position: absolute;
+	z-index: 4;
+	top: 140px;
 	opacity: 0;
-	overflow: scroll;	
-	-webkit-transition: 0.65s;
-	-o-transition: 0.65s;
-	transition: 0.65s;
+	-webkit-transition: 0.8s;
+	-o-transition: 0.8s;
+	transition: 0.8s;
 }
-.photoset:hover .photoset-slide-container {
+.photoset .photoset-slide-container:hover {
 	opacity: 1;
 }
 .photoset-slides {
 	background-color: rgba(255,255,255,.75);
-	margin-top: 335px;
+	border: 2px 0 2px solid #f60;
 	padding: 10px 0;
 	height: 80px;
 	margin-left: 0px;
+	-webkit-transition: 0.8s;
+	-o-transition: 0.8s;
+	transition: 0.8s;
 }
 .photoset-slides li {
 	list-style:none;
@@ -149,34 +182,27 @@ small {
 	display: block;
 	margin-right: 10px;
 	width: 80px;
-	-webkit-transition: 0.5s;
-	-o-transition: 0.5s;
-	transition: 0.5s;
+	-webkit-transition: 0.3s;
+	-o-transition: 0.3s;
+	transition: 0.3s;
 }
-.photoset-slides li img:hover {
-	width: 200px;
-	margin-top: -100px;
+.photoset-slides li:hover img {
+	width: 100px;
+	margin-top: -10px;
 }
-.photoset-slides li.cover {
-	background-color: rgba(0,0,0,.5);
-	width: 100%;
-	height: 500px;
-	position: absolute;
-	top: 0px;
-	z-index: 1;
-	-webkit-transition: 0.6s;
-	-o-transition: 0.6s;
-	transition: 0.6s;
+.photoset-slides li img.selected {
+	width: 90px;
+	border: 5px solid #f60;
+	margin-top: -10px;
 }
-.photoset-slides:hover li.cover {
-	background-color: rgba(0,0,0,.5);
-}
+
 .photoset h2 {
 	color: rgba(0,0,0,0);
 	background-color: rgba(255,255,255,0);
-	padding: 10px 25px 0px 10px;
+	padding: 0px 25px 0px 10px;
 	display: inline-block;
 	position: absolute;
+	bottom: 15px;
 	z-index: 2;
 	-webkit-transition: 0.35s;
 	-o-transition: 0.35s;

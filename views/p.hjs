@@ -23,12 +23,14 @@
       </div>
       <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
         <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
-            <div ng-init="pCover = 0" id="photoset-{{ $index }}" class="photoset-inner">
+            <div ng-init="pCover=0" id="photoset-{{ $index }}" class="photoset-inner">
               <h1>{{ photoSet.title }}</h1><a name="{{ photoSet.title }}"></a>
               <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" alt="{{ photoSet.title }}">
+              <div class="moveL" ng-mouseover="pMove=-600"></div>
+              <div class="moveR" ng-mouseover="pMove=600"></div>
               <div class="photoset-slide-container">
-                <ul ng-init="pSlide = 0" class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 900}}px; margin-left: -{{pSlide}}px;" >
-                  <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover = $index; $parent.pSlide = $index*90-270;" >
+                <ul ng-init="pSlide=0" class="photoset-slides" style="width: {{ photoSet.photo.length * 90 + 900}}px; margin-left: -{{pSlide+pMove}}px;" >
+                  <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover=$index; $parent.pSlide=$index*90-270;" >
                     <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
                   </li>
                 </ul>

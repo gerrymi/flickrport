@@ -11,7 +11,7 @@
 .input__field {
 	position: relative;
 	display: block;
-	float: right;
+	float: left;
 	padding: 0.8em;
 	width: 60%;
 	border: none;
@@ -20,8 +20,7 @@
 	color: #aaa;
 	font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	-webkit-appearance: none; /* for box shadows to show on iOS */
-	text-align: center !important;
+	-webkit-appearance: none;
 	font-size: 1.5em;
 }
 
@@ -45,6 +44,7 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	padding-left: 
 }
 
 .input__label-content {
@@ -73,13 +73,13 @@
 }
 
 .input__field--jiro {
-	padding: 0.85em 0.5em;
 	width: 100%;
 	background: transparent;
 	color: #DDE2E2;
 	opacity: 0;
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
+	padding: 0.85em 0.5em;
 }
 
 .input__label--jiro {

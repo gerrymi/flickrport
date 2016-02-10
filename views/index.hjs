@@ -11,7 +11,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 center">
-          <div class="header"><h1><% title %></h1></div>
+          <div class="header"><h1><% title %>!</h1></div>
           <p>flickPort takes your Flickr account and generates a linkable, portfolio-style page out of your photos. Now you're always ready to show your work.</p>
           <div id="flickr-username">
             <form class="generate-form" action="/" method="post">

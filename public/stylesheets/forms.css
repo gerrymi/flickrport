@@ -1,3 +1,31 @@
+.center {
+	top: 15vh;
+	border-top: 10px solid #f60;
+	border-bottom: 100px solid #f60;
+	padding-bottom: 100px;
+}
+.header	{
+	text-align: center;
+}
+.header h1 {
+	font-size: 4em;
+	color: #f60;
+}
+img.logos {
+	width: 100%;
+}
+#flickr-username {
+	text-align: center;
+	padding: 75px 0;
+	border-top: 2px solid #f60;
+	border-bottom: 2px solid #f60;
+	margin: 25px 0; 
+}
+.fine-print {
+	font-size: 0.9em;
+	color: #777;
+	margin: 0 0 75px;
+}
 .input {
 	position: relative;
 	z-index: 1;
@@ -33,7 +61,7 @@
 	float: right;
 	padding: 0 1em;
 	width: 40%;
-	color: #6a7989;
+	color: #f60;
 	font-weight: bold;
 	font-size: 70.25%;
 	-webkit-font-smoothing: antialiased;
@@ -75,7 +103,7 @@
 .input__field--jiro {
 	width: 100%;
 	background: transparent;
-	color: #DDE2E2;
+	color: #FFF;
 	opacity: 0;
 	-webkit-transition: opacity 0.3s;
 	transition: opacity 0.3s;
@@ -110,7 +138,7 @@
 }
 
 .input__label--jiro::before {
-	border-top: 2px solid #6a7989;
+	border-top: 2px solid #f60;
 	-webkit-transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
 	transform: translate3d(0, 100%, 0) translate3d(0, -2px, 0);
 	-webkit-transition-delay: 0.3s;
@@ -119,7 +147,7 @@
 
 .input__label--jiro::after {
 	z-index: -1;
-	background: #6a7989;
+	background: #f60;
 	-webkit-transform: scale3d(1, 0, 1);
 	transform: scale3d(1, 0, 1);
 	-webkit-transform-origin: 50% 0%;

@@ -1,7 +1,7 @@
 var app = angular.module("flickrPort", ["infinite-scroll", "ngAnimate", "ngRoute"]);
 app.config(function($routeProvider){
     $routeProvider.
-        when('/', {templateUrl: '/angular/views/home.html', controller: 'galleryCtrl'}).
+        when('/', {templateUrl: '/angular/views/no-user.html', controller: 'galleryCtrl'}).
         when('/:username', {templateUrl: '/angular/views/user.html', controller: 'galleryCtrl'}).
         when('/:username/:photoset_id', {templateUrl: '/angular/views/photoset.html', controller: 'galleryCtrl'}).
         otherwise({ redirectTo: '/' });
@@ -22,7 +22,7 @@ app.controller('galleryCtrl', function($scope, $routeParams, $location, $anchorS
       console.log(newHash)
    }
    $scope.username = $routeParams.username;
-   $scope.photoset = $routeParams.photoset_id;2
+   $scope.photoset = $routeParams.photoset_id;
 })
 
 app.factory('flickrPort', function($http, $routeParams) {

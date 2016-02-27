@@ -22,9 +22,10 @@
                 <a href="" ng-click="scrollTo($index)"><h2>{{ photoSet.title }}</h2></a>
               </li>
           </ul>
-        </div>      
+        </div>
       </div>
       <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
+      <p>{{ flickrPort.photoSets }}</p>
         <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
             <div ng-init="pCover=0" id="photoset-{{ $index }}" class="photoset-inner">
               <h1>{{ photoSet.title }}</h1><a name="{{ photoSet.title }}"></a>
@@ -47,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div ng-view id="modal"></div>
+    <div ng-view></div>
     <script src="/angular/app.js"></script>
   </body>
 </html>

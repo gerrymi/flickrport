@@ -232,8 +232,6 @@ small {
 	color: rgba(0,0,0,1);
 	background-color: rgba(255,255,255,1);
 }
-
-
 @media (max-width: 1439px) {
 	#menu {
 		position: fixed;
@@ -298,5 +296,6 @@ small {
 	z-index: 50;
 }
 #modal-inner img {
+	width: 10%;
 	float: left;
 }

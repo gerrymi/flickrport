@@ -18,39 +18,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
   $urlRouterProvider.otherwise("/");
 });
-app.controller('galleryCtrl', function($scope, $stateParams, $http, $location, $anchorScroll, flickrPort) {
+app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams, $http, $location, $anchorScroll, flickrPort) {
+	$window.document.title = "flickrPort: " + $stateParams.username
 	$scope.flickrPort = new flickrPort();
 	$scope.scrollTo = function(x) {
       var newHash = 'photoset-' + x;
             if ($location.hash() !== newHash) {
-              // set the $location.hash to `newHash` and
-              // $anchorScroll will automatically scroll to it
               $location.hash('photoset-' + x);
             } else {
-              // call $anchorScroll() explicitly,
-              // since $location.hash hasn't changed
               $anchorScroll();
             }
    }
-   $scope.username = $stateParams.username;
-   $scope.photoset_id = $stateParams.photoset_id;
+   $rootScope.username = $stateParams.username;
+   $rootScope.photoset_id = $stateParams.photoset_id;
    $http.get("https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=9925e9fc9654b7141240423e98da68e6&username="+$stateParams.username+"&format=json&nojsoncallback=1").then(function(res){
 			user_id = res.data.user.id;
 			$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9925e9fc9654b7141240423e98da68e6&photoset_id="+$stateParams.photoset_id+"&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
-			$scope.photos = res.data.photoset.photo
+			$scope.photos = res.data.photoset
    		});
    });
    $scope.go = function() {
      $location.path( $stateParams.username );
    };
    $scope.scrollOff = function(){ 
-   	if (scroll != "modal-no-scroll") {
-   		$scope.scroll = "modal-no-scroll";
-   	} else {
-   		$scope.scroll = "modal-scroll"
-   	};
-   }
-
+   		$rootScope.scroll = "modal-no-scroll";
+   }; 
+   $scope.scrollOn = function(){ 
+   		$rootScope.scroll = "modal-scroll"
+   }; 
 })
 
 app.factory('flickrPort', function($http, $stateParams) {

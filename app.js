@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var ports = require('./routes/p');
+var a = require('./routes/a');
 
 var app = express();
 
@@ -27,6 +28,7 @@ console.log ('app working');
 
 app.use('/', routes);
 app.use('/p', ports);
+app.use('/a', a);
 
 // Convert Flickr username to userid
 app.post('/', function(req, res) {

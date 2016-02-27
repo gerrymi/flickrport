@@ -47,7 +47,6 @@ app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams
    		$rootScope.scroll = "modal-scroll"
    }; 
 })
-
 app.factory('flickrPort', function($http, $stateParams) {
 	var flickrPort = function() {
 		this.photoSets = [];

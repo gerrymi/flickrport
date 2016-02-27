@@ -57,9 +57,6 @@ small {
 	margin-top: 30vh;
 	text-align: center; 
 }
-.generate-form {
-	text-align: center;
-}
 .fade-in.ng-enter {
 	-webkit-transition: 2s ease;
 	transition: 2s ease;
@@ -150,72 +147,6 @@ small {
 .photoset-cover {
 	z-index: 1;
 }
-.photoset-slide-container {
-	opacity: 0;
-	-webkit-transition: 0.8s;
-	-o-transition: 0.8s;
-	transition: 0.8s;
-}
-.photoset-slide-inner {
-	position: absolute;
-	z-index: 3;
-	top: 40px;
-	padding: 80px 0;
-}
-.photoset-slide-container:hover {
-	opacity: 1;
-}
-.moveL, .moveR {
-	width: 90px;
-	height: 140px;
-	top: 135px;
-	position: absolute;
-	z-index: 4;
-}
-.moveL {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&1+0,0+100;White+to+Transparent */
-	background: -moz-linear-gradient(left,  rgba(255,255,255,.8) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(left,  rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to right,  rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
-}
-.moveR {
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
-	background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,.8) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,.8) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-	position: absolute;
-	right: 0px;
-}
-.photoset-slides {
-	background-color: rgba(255,255,255,.75);
-	border: 2px 0 2px solid #f60;
-	padding: 10px 0;
-	height: 120px;
-	margin-left: 0px;
-	-webkit-transition: 2s;
-	-o-transition: 2s;
-	transition: 2s;
-}
-.photoset-slides li {
-	list-style:none;
-	float: left;
-	position: relative;
-	z-index: 2;
-}
-.photoset-slides li img {
-	display: block;
-	margin-right: 10px;
-	width: 120px;
-	-webkit-transition: 0.3s;
-	-o-transition: 0.3s;
-	transition: 0.3s;
-}
-.photoset-slides li:hover img {
-	width: 140px;
-	margin-top: -10px;
-}
 .photoset h1 {
 	color: rgba(0,0,0,0);
 	background-color: rgba(255,255,255,0);
@@ -232,6 +163,35 @@ small {
 	color: rgba(0,0,0,1);
 	background-color: rgba(255,255,255,1);
 }
+/* Modal */
+.modal-no-scroll {
+	overflow: hidden;
+}
+#modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.4);
+	z-index: 10;
+}
+#modal-inner {
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	width: 80%;
+	height: 80%;
+	background-color: #fff;
+	margin: 0 auto;
+	overflow: scroll;
+	z-index: 50;
+}
+#modal-inner img {
+	width: 10%;
+	float: left;
+}
+/* Responsive */
 @media (max-width: 1439px) {
 	#menu {
 		position: fixed;
@@ -271,31 +231,4 @@ small {
 		top: -1.5em;
 		left: 0;
 	}
-}
-.modal-no-scroll {
-	overflow: hidden;
-}
-#modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0,0,0,.4);
-	z-index: 10;
-}
-#modal-inner {
-	position: absolute;
-	top: 10%;
-	left: 10%;
-	width: 80%;
-	height: 80%;
-	background-color: #fff;
-	margin: 0 auto;
-	overflow: scroll;
-	z-index: 50;
-}
-#modal-inner img {
-	width: 10%;
-	float: left;
 }

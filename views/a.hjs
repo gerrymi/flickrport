@@ -5,50 +5,15 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' /> -->
     <script src="/angular/ng-infinite-scroll.min.js"></script>
+    <script src="/angular/angular-ui-router.min.js"></script>
+    <script src="/angular/clickoutside.directive.js"></script>
   </head>
-  <body ng-app="flickrPort">
-    <div id="container" ng-controller="galleryCtrl">
-      <h1> {{ user_id }} </h1>
-      <div id="header">
-        <div id="menu">
-          <h1>{{ username }}</h1>  
-          <ul class="photoset-titles">
-              <li class="fade-in" ng-repeat="photoSet in flickrPort.photoSets" id="{{ photoSet.title }}">
-                <a href="" ng-click="scrollTo($index)"><h2>{{ photoSet.title }}</h2></a>
-              </li>
-          </ul>
-        </div>
-      </div>
-      <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
-      <p>{{ flickrPort.photoSets }}</p>
-        <div ng-repeat="photoSet in flickrPort.photoSets"  class="fade-in photoset">
-            <div ng-init="pCover=0" id="photoset-{{ $index }}" class="photoset-inner">
-              <h1>{{ photoSet.title }}</h1><a name="{{ photoSet.title }}"></a>
-              <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" alt="{{ photoSet.title }}">
-              <div class="photoset-slide-container">
-                <div class="moveL" ng-mouseover="pMove=pMove-600"></div>
-                <div class="moveR" ng-mouseover="pMove=pMove+600"></div>
-                <div class="photoset-slide-inner">
-                  <ul ng-init="pSlide=0" class="photoset-slides" style="width: {{ photoSet.photo.length * 130 + 1400}}px; margin-left: -{{pSlide+pMove}}px;" >
-                    <li ng-repeat="photo in photoSet.photo" ng-click="$parent.pCover=$index; $parent.pSlide=$index*130-260; $parent.pMove=0" >
-                      <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div class="loading" ng-show='flickrPort.busy'>
-          <img src="/images/loading.gif" alt="">
-        </div>
-      </div>
-    </div>
-    <div ng-view></div>
+  <body class="{{ scroll }}" ng-app="flickrPort" ng-controller="galleryCtrl">
+    <div ui-view></div>
     <script src="/angular/app.js"></script>
   </body>
 </html>

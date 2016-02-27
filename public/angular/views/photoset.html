@@ -1,6 +1,8 @@
 <div id="modal">
-	<div id="modal-inner">
-		<h1>Photoset: {{ photoset }}</h1>
-		<p>{{ flickrPort.photoSets }}</p>
+	<div id="modal-inner" click-outside="go()">
+		<h1>Photoset: {{ photoset_id }}</h1>
+		<div ng-repeat="photo in photos">
+		  <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
+		</div>
 	</div>
 </div>

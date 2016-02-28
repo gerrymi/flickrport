@@ -3,6 +3,7 @@
   <head>
     <title><% title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" type="text/css" href="/javascripts/flexslider/flexslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
@@ -14,6 +15,8 @@
   </head>
   <body class="{{ scroll }}" ng-app="flickrPort" ng-controller="galleryCtrl">
     <div ui-view></div>
+    <script src="/javascripts/flexslider/jquery.flexslider.js"></script>
+    <script src="/javascripts/angular-flexslider.js"></script>
     <script src="/angular/app.js"></script>
   </body>
 </html>

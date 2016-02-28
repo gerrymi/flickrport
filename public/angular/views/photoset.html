@@ -1,8 +1,10 @@
 <div id="modal">
-	<div id="modal-inner" click-outside="go(); scrollOn()">
-		<h1>Photoset: {{ photoset_id }}</h1>
-		<div ng-repeat="photo in photos.photo">
-		  <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg" alt="{{ photoSet.title+'_photo#'+$index }}">
-		</div>
+	<div id="modal-inner" click-outside="go(); scrollOn();">
+		<!-- <h1>{{ photos.title }}</h1> -->
+		<flex-slider slide="photo in photos.photo track by $index" animation="slide" control-nav="thumbnails">
+		  <li data-thumb="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_q.jpg">
+		    <img ng-src="https://farm{{ photo.farm }}.staticflickr.com/{{ photo.server }}/{{ photo.id }}_{{ photo.secret }}_b.jpg">
+		  </li>
+		</flex-slider>
 	</div>
 </div>

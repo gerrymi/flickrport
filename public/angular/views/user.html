@@ -9,9 +9,9 @@
       </ul>
     </div>
   </div>
-  <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.5'>
+  <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.1'>
     <div ng-repeat="photoSet in flickrPort.photoSets" class="fade-in photoset">
-        <a href="#/{{ username }}/{{ photoSet.id }}" ng-click="scrollOff()" name="{{ photoSet.title }}">
+        <a href="#/{{ username }}/{{ photoSet.id }}" ng-click="scrollOff();" name="{{ photoSet.title }}">
           <div ng-init="pCover=0" id="photoset-{{ $index }}" class="photoset-inner">
             <h1>{{ photoSet.title }}</h1>
             <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" alt="{{ photoSet.title }}">

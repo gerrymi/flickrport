@@ -11,6 +11,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: '/angular/views/user.html',
       controller: 'galleryCtrl'
     })
+    .state('username.all', {
+      url: "/",
+      templateUrl: '/angular/views/all.html',
+      controller: 'galleryCtrl'
+    })
     .state('username.photoset_id', {
       url: "/:photoset_id",
       templateUrl: '/angular/views/photoset.html',
@@ -39,7 +44,7 @@ app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams
   		});
   });
   $scope.go = function() {
-   $location.path( $stateParams.username );
+   $location.path( $stateParams.username+"/" );
   };
   $scope.scrollOff = function(){ 
   		$rootScope.scroll = "modal-no-scroll";

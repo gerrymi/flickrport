@@ -33,7 +33,7 @@ app.use('/a', a);
 // Convert Flickr username to userid
 app.post('/', function(req, res) {
   var username = req.body.name
-  res.redirect('/a#/'+username)
+  res.redirect('/a#/'+username+"/")
 });
 
 // catch 404 and forward to error handler

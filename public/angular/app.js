@@ -52,12 +52,6 @@ app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams
   $scope.scrollOn = function(){ 
   		$rootScope.scroll = "modal-scroll"
   };
-  $scope.slides = [
-    'http://flexslider.woothemes.com/images/kitchen_adventurer_cheesecake_brownie.jpg',
-    'http://flexslider.woothemes.com/images/kitchen_adventurer_lemon.jpg',
-    'http://flexslider.woothemes.com/images/kitchen_adventurer_donut.jpg',
-    'http://flexslider.woothemes.com/images/kitchen_adventurer_caramel.jpg'
-  ];
 })
 app.factory('flickrPort', function($http, $stateParams) {
 	var flickrPort = function() {

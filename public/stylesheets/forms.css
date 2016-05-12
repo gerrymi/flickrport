@@ -2,9 +2,7 @@
 	text-align: center;
 }
 .center {
-	border-top: 10px solid #f60;
-	border-bottom: 100px solid #f60;
-	padding-bottom: 100px;
+	padding: 25px 0 100px;
 }
 .header	{
 	text-align: center;

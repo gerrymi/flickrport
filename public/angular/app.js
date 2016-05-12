@@ -3,22 +3,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('no-user', {
       url: "/",
-      templateUrl: '/angular/views/no-user.html',
+      templateUrl: '/public/angular/views/no-user.html',
       controller: 'galleryCtrl'
     })
     .state('username', {
       url: "/:username",
-      templateUrl: '/angular/views/user.html',
+      templateUrl: '/public/angular/views/user.html',
       controller: 'galleryCtrl'
     })
     .state('username.all', {
       url: "/",
-      templateUrl: '/angular/views/all.html',
+      templateUrl: '/public/angular/views/all.html',
       controller: 'galleryCtrl'
     })
     .state('username.photoset_id', {
       url: "/:photoset_id",
-      templateUrl: '/angular/views/photoset.html',
+      templateUrl: '/public/angular/views/photoset.html',
       controller: 'galleryCtrl'
     })
   $urlRouterProvider.otherwise("/");

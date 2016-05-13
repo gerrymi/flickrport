@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><% title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel="stylesheet" type="text/css" href="/javascripts/flexslider/flexslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' /> -->
+    <script src="/angular/ng-infinite-scroll.min.js"></script>
+    <script src="/angular/angular-ui-router.min.js"></script>
+    <script src="/angular/clickoutside.directive.js"></script>
+  </head>
+  <body class="{{ scroll }}" ng-app="flickrPort" ng-controller="galleryCtrl">
+    <div ui-view></div>
+    <script src="/javascripts/flexslider/jquery.flexslider.js"></script>
+    <script src="/javascripts/angular-flexslider.js"></script>
+    <script src="/angular/app.js"></script>
+  </body>
+</html>
+

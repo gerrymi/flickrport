@@ -1,0 +1,26 @@
+<div id="container">
+  <div id="header">
+    <div id="menu">
+      <h1>{{ username }}</h1>  
+      <ul class="photoset-titles">
+          <li class="fade-in" ng-repeat="photoSet in flickrPort.photoSets" id="{{ photoSet.title }}">
+            <a href="" ng-click="scrollTo($index)"><h2>{{ photoSet.title }}</h2></a>
+          </li>
+      </ul>
+    </div>
+  </div>
+  <div id="content" infinite-scroll='flickrPort.nextPage()' infinite-scroll-disabled='flickrPort.busy' infinite-scroll-distance='.1'>
+    <div ng-repeat="photoSet in flickrPort.photoSets" class="fade-in photoset">
+        <a href="#/{{ username }}/{{ photoSet.id }}" ng-click="scrollOff();" name="{{ photoSet.title }}">
+          <div ng-init="pCover=0" id="photoset-{{ $index }}" class="photoset-inner">
+            <h1>{{ photoSet.title }}</h1>
+            <img class="photoset-cover" src="https://farm{{ photoSet.photo[pCover].farm }}.staticflickr.com/{{ photoSet.photo[pCover].server }}/{{ photoSet.photo[pCover].id }}_{{ photoSet.photo[pCover].secret }}_b.jpg" alt="{{ photoSet.title }}">
+          </div>
+        </a>
+    </div>
+    <div class="loading" ng-show='flickrPort.busy'>
+      <img src="/images/loading.gif" alt="">
+    </div>
+  </div>
+</div>
+<div ui-view></div>

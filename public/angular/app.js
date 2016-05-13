@@ -1,33 +1,50 @@
-var app = angular.module("shopZilla", ["infinite-scroll", "ngAnimate", "ui.router", "angular-click-outside", "angular-flexslider"]);
+var app = angular.module("flickrPort", ["infinite-scroll", "ngAnimate", "ui.router", "angular-click-outside", "angular-flexslider"]);
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-    .state('brands', {
-      url: "/:cats",
-      templateUrl: '/public/angular/views/brands.html',
-      controller: 'galleryCtrl'
-    })
-    .state('brands.all', {
+    .state('no-user', {
       url: "/",
-      templateUrl: '/public/angular/views/all.html',
+      templateUrl: '/angular/views/no-user.html',
       controller: 'galleryCtrl'
     })
-    .state('brands.products', {
-      url: "/:products",
-      templateUrl: '/public/angular/views/products.html',
+    .state('username', {
+      url: "/:username",
+      templateUrl: '/angular/views/user.html',
+      controller: 'galleryCtrl'
+    })
+    .state('username.all', {
+      url: "/",
+      templateUrl: '/angular/views/all.html',
+      controller: 'galleryCtrl'
+    })
+    .state('username.photoset_id', {
+      url: "/:photoset_id",
+      templateUrl: '/angular/views/photoset.html',
       controller: 'galleryCtrl'
     })
   $urlRouterProvider.otherwise("/");
 });
-app.config(function($httpProvider){
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-});
-app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams, $http, $location, $anchorScroll, shopZilla) {
-	$window.document.title = "shopZilla: " + $stateParams.cats
-	$scope.shopZilla = new shopZilla();
-  $rootScope.cats = $stateParams.cats;
-  $rootScope.products = $stateParams.products;
+
+app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams, $http, $location, $anchorScroll, flickrPort) {
+	$window.document.title = "flickrPort: " + $stateParams.username
+	$scope.flickrPort = new flickrPort();
+	$scope.scrollTo = function(x) {
+      var newHash = 'photoset-' + x;
+            if ($location.hash() !== newHash) {
+              $location.hash('photoset-' + x);
+            } else {
+              $anchorScroll();
+            }
+  }
+  $rootScope.username = $stateParams.username;
+  $rootScope.photoset_id = $stateParams.photoset_id;
+  $http.get("https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=9925e9fc9654b7141240423e98da68e6&username="+$stateParams.username+"&format=json&nojsoncallback=1").then(function(res){
+  	user_id = res.data.user.id;
+  	$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9925e9fc9654b7141240423e98da68e6&photoset_id="+$stateParams.photoset_id+"&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
+  	  $scope.photos = res.data.photoset
+  		});
+  });
   $scope.go = function() {
-   $location.path( $stateParams.cats+"/" );
+   $location.path( $stateParams.username+"/" );
   };
   $scope.scrollOff = function(){ 
   		$rootScope.scroll = "modal-no-scroll";
@@ -35,24 +52,31 @@ app.controller('galleryCtrl', function($window, $scope, $rootScope, $stateParams
   $scope.scrollOn = function(){ 
   		$rootScope.scroll = "modal-scroll"
   };
-  $http.get("http://catalog.bizrate.com/services/catalog/v1/us/product?apiKey=f1131affb74662c8a9d73bfa68b4216d&publisherId=610065&placementId=&categoryId=&keyword="+$stateParams.cats+"&productId=&productIdType=&offersOnly=&merchantId=&brandId="+$stateParams.products+"&biddedOnly=&minPrice=&maxPrice=&minMarkdown=&zipCode=&freeShipping=&start=0&results=10000&backfillResults=0&startOffers=0&resultsOffers=0&sort=relevancy_desc&attFilter=&attWeights=&attributeId=&resultsAttribute=&resultsAttributeValues=&showAttributes=&showProductAttributes=&minRelevancyScore=100&maxAge=&showRawUrl=&imageOnly=&reviews=none&retailOnly=&format=json&callback=callback").then(function(res){
-    $scope.products = res.data.products.product;
-  });
 })
-app.factory('shopZilla', function($http, $stateParams) {
-	var shopZilla = function() {
-		this.brands = [];
+app.factory('flickrPort', function($http, $stateParams) {
+	var flickrPort = function() {
+		this.photoSets = [];
 		this.busy = false;
 	};
 	var loaded = 0
 
-  shopZilla.prototype.nextPage = function() {
+  flickrPort.prototype.nextPage = function() {
 		if (this.busy) return;
 		this.busy = true;
-		  $http.get("http://catalog.bizrate.com/services/catalog/v1/us/brands?apiKey=f1131affb74662c8a9d73bfa68b4216d&publisherId=610065&start=0&results=10000&keyword="+$stateParams.cats+"&format=json&callback=callback").then(function(res){
-        brands = res.data.brands.brand;
-        this.brands = brands;
-		  }.bind(this));
+		  $http.get("https://api.flickr.com/services/rest/?method=flickr.people.findByUsername&api_key=9925e9fc9654b7141240423e98da68e6&username="+$stateParams.username+"&format=json&nojsoncallback=1").then(function(res){
+        user_id = res.data.user.id;
+	      	$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=9925e9fc9654b7141240423e98da68e6&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
+		        photoSetList = res.data.photosets.photoset
+		        for (var i = loaded; i < loaded+3; i++) {
+		          	$http.get("https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9925e9fc9654b7141240423e98da68e6&photoset_id="+photoSetList[i].id+"&user_id="+user_id+"&format=json&nojsoncallback=1").then(function(res){
+			            photos = res.data.photoset 
+			            this.photoSets.push(photos);
+		          	}.bind(this));
+		        }
+		        loaded += 3
+			   	this.busy = false;
+		    }.bind(this));
+		}.bind(this));
 	};
-    return shopZilla;
+    return flickrPort;
 });

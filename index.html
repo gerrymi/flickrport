@@ -1,46 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>flickrPort!</title>
+    <title>Shopzilla API</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css'/>
+    <link rel="stylesheet" type="text/css" href="/public/javascripts/flexslider/flexslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/public/stylesheets/forms.css' />
+    <script src="/public/angular/ng-infinite-scroll.min.js"></script>
+    <script src="/public/angular/angular-ui-router.min.js"></script>
+    <script src="/public/angular/clickoutside.directive.js"></script>
   </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3 center">
-          <div class="header"><h1>flickrPort!</h1></div>
-          <p>flickPort takes your Flickr account and generates a linkable, portfolio-style page out of your photos. Now you're always ready to show your work.</p>
-          <div id="flickr-username">
-          <script>
-            function process()
-            {
-            var url="/a#/" + document.getElementById("name").value;
-            location.href=url;
-            return false;
-            }
-          </script>
-            <form class="generate-form" action="/" onSubmit="return process();">
-               <span class="input input--jiro">
-                <input class="input__field input__field--jiro" type="text" id="name" name="name" autocomplete="off"/>
-                <label class="input__label input__label--jiro" for="input-10">
-                  <span class="input__label-content input__label-content--jiro"><h2>flickr username</h2></span>
-                </label>
-              </span>
-            </form>
-          </div>
-          <div class="fine-print">
-            <p>This service is still in the early stages, please <a href="mailto:gerrymibernardo@gmail.com"><strong>email</strong></a> me any issues you may be having. Fixes are on the worksand and new features are coming soon! Check out the project on <a href="https://github.com/gerrymi/flickrport"><strong>github</strong></a>!</p>
-          </div>
-          <div class="built">
-            <h2><small>built with:</small></h2>
-            <div class="col-xs-4 col-xs-offset-1"><img class="logos" src="/public/images/angularjs.png" alt=""></div>
-            <div class="col-xs-4 col-xs-offset-2"><img class="logos" src="/public/images/bootstrap.png" alt=""></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <body class="{{ scroll }}" ng-app="shopZilla" ng-controller="galleryCtrl">
+    <div ui-view></div>
+    <script src="/public/javascripts/flexslider/jquery.flexslider.js"></script>
+    <script src="/public/javascripts/angular-flexslider.js"></script>
+    <script src="/public/angular/app.js"></script>
   </body>
 </html>
+
